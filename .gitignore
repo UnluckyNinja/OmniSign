@@ -5,3 +5,4 @@
 *.war
 *.ear
 /SignPlus/nbproject/private/
+/SignPlus/dist/
