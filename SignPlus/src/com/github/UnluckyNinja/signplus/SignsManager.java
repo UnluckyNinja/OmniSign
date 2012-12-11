@@ -4,12 +4,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.bukkit.block.Sign;
+import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.metadata.MetadataValue;
 import org.bukkit.plugin.Plugin;
 
 public class SignsManager {
+    private static Map<Plugin,SignsManager> managers = new HashMap<Plugin,SignsManager>();
     private Plugin plugin;
-    private static Map<Plugin,SignsManager> managers = new HashMap<>();
+    private Map<Object,FixedMetadataValue> metadataValus = new HashMap<Object,FixedMetadataValue>();
     
     private SignsManager(final Plugin plugin){
         this.plugin = plugin;
@@ -28,6 +30,11 @@ public class SignsManager {
         }
         return null;
     }
+    
+    public void setMetadata(Sign sign, String key, Object value){
+        sign.setMetadata(key, new FixedMetadataValue(plugin,value));
+    }
+    
     public static SignsManager getInstance(Plugin plugin){
         if(managers.containsKey(plugin)){
             return (SignsManager)managers.get(plugin);
