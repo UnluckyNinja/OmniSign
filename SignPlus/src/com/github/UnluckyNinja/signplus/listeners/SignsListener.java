@@ -20,7 +20,7 @@ public class SignsListener implements Listener {
     
     public SignsListener(SignPlus SP){
         this.SP = SP;
-        SM = SP.getOmniSignsManager();
+        SM = SP.getSignsManager();
     }
     
     @EventHandler(priority = EventPriority.LOWEST)

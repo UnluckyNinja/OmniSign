@@ -14,13 +14,13 @@ public class SignPlus extends JavaPlugin {
         config = this.getConfig();
         config.options().copyDefaults(true);
         getServer().getPluginManager().registerEvents(new SignsListener(this), this);
-        getLogger().info("[OmniSigns] OmniSigns has been enabled.");
+        getLogger().info("[SignPlus] SignPlus has been enabled.");
     }
     @Override
     public void onDisable(){
-        getLogger().info("[OmniSigns] OmniSigns has been disabled.");
+        getLogger().info("[SignPlus] SignPlus has been disabled.");
     }
-    public SignsManager getOmniSignsManager(){
+    public SignsManager getSignsManager(){
         return SM;
     }
 }
