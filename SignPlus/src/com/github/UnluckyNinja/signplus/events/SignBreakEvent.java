@@ -26,13 +26,17 @@ public class SignBreakEvent extends BlockBreakEvent implements SignEvent {
     
     @Override
     public SignType getSignType() {
-        String line1 = sign.getLine(1);
-        return SignType.getType(line1.substring(1,line1.length()-2 ));
+        String line1 = sign.getLine(0);
+        if(line1.startsWith("[") && line1.endsWith("]") && line1.length() > 3){
+            return SignType.getType(line1.substring(1,line1.length()-1 ));
+        }else{
+            return SignType.NORMAL;
+        }
     }
     
     @Override
     public boolean isNormalSign() {
-        return !(sign.getLine(1).startsWith("[") && sign.getLine(1).endsWith("]"));
+        return !(sign.getLine(0).startsWith("[") && sign.getLine(0).endsWith("]"));
     }
     
     @Override

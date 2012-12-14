@@ -42,33 +42,32 @@ public enum SignType {
     }
     
     public static SignType getType(String string) {
-        switch (string.toLowerCase()) {
-            case "normal":
-                return NORMAL;
-            case "command":
-                return COMMAND;
-            case "time":
-                return TIME;
-            case "weather":
-                return WEATHER;
-            case "give":
-                return GIVE;
-            case "container":
-                return CONTAINER;
-            case "power":
-                return POWER;
-            case "note":
-                return NOTE;
-            case "quiz":
-                return QUIZ;
-            case "information":
-                return INFORMATION;
-            case "protect":
-                return PROTECT;
-            case "goto":
-                return GOTO;
-            default:
-                return OTHER;
+        if(string.equalsIgnoreCase("command")){
+            return COMMAND;
+        }else if(string.equalsIgnoreCase("time")){
+            return TIME;
+        }else if(string.equalsIgnoreCase("weather")){
+            return WEATHER;
+        }else if(string.equalsIgnoreCase("give")){
+            return GIVE;
+        }else if(string.equalsIgnoreCase("container")){
+            return CONTAINER;
+        }else if(string.equalsIgnoreCase("power")){
+            return POWER;
+        }else if(string.equalsIgnoreCase("note")){
+            return NOTE;
+        }else if(string.equalsIgnoreCase("quiz")){
+            return QUIZ;
+        }else if(string.equalsIgnoreCase("information")){
+            return INFORMATION;
+        }else if(string.equalsIgnoreCase("protect")){
+            return PROTECT;
+        }else if(string.equalsIgnoreCase("goto")){
+            return GOTO;
+        }else if(string.equalsIgnoreCase("normal")){
+            return NORMAL;
+        }else{
+            return OTHER;
         }
     }
 }

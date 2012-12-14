@@ -9,7 +9,7 @@ import org.bukkit.metadata.MetadataValue;
 import org.bukkit.plugin.Plugin;
 
 public class SignsManager {
-    private static Map<Plugin,SignsManager> managers = new HashMap<Plugin,SignsManager>();
+    private static Map<String,SignsManager> managers = new HashMap<String,SignsManager>();
     private Plugin plugin;
     private Map<Object,FixedMetadataValue> metadataValus = new HashMap<Object,FixedMetadataValue>();
     
@@ -36,11 +36,12 @@ public class SignsManager {
     }
     
     public static SignsManager getInstance(Plugin plugin){
-        if(managers.containsKey(plugin)){
-            return (SignsManager)managers.get(plugin);
+        String name = plugin.getDescription().getName();
+        if(managers.containsKey(name)){
+            return (SignsManager)managers.get(name);
         }else{
             SignsManager OSM = new SignsManager(plugin);
-            managers.put(plugin, OSM);
+            managers.put(name, OSM);
             return OSM;
         }
     }
