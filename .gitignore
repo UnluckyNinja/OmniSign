@@ -6,3 +6,4 @@
 *.ear
 /SignPlus/nbproject/private/
 /SignPlus/dist/
+/SignPlus/build/
