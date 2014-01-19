@@ -1,0 +1,9 @@
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+/SignPlus/nbproject/private/
+/SignPlus/dist/
+/SignPlus/build/
