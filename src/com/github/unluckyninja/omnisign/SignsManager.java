@@ -1,4 +1,4 @@
-package com.github.unluckyninjac.omnisign;
+package com.github.unluckyninja.omnisign;
 
 import org.bukkit.block.Sign;
 import org.bukkit.metadata.FixedMetadataValue;

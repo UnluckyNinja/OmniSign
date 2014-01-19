@@ -1,4 +1,4 @@
-package com.github.unluckyninjac.omnisign;
+package com.github.unluckyninja.omnisign;
 
 import lib.PatPeter.SQLibrary.Database;
 import lib.PatPeter.SQLibrary.SQLite;

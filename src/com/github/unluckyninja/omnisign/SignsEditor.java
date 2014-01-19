@@ -1,5 +1,5 @@
 
-package com.github.unluckyninjac.omnisign;
+package com.github.unluckyninja.omnisign;
 
 import org.bukkit.ChatColor;
 import org.bukkit.plugin.Plugin;

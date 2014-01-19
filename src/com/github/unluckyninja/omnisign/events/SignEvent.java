@@ -2,9 +2,9 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.github.unluckyninjac.omnisign.events;
+package com.github.unluckyninja.omnisign.events;
 
-import com.github.unluckyninjac.omnisign.SignType;
+import com.github.unluckyninja.omnisign.SignType;
 import org.bukkit.block.Sign;
 
 public interface SignEvent{

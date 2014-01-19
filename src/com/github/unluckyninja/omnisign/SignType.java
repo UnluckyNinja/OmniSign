@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.github.unluckyninjac.omnisign;
+package com.github.unluckyninja.omnisign;
 
 /**
  * Types of the omnisigns.

@@ -1,10 +1,10 @@
-package com.github.unluckyninjac.omnisign.listeners;
+package com.github.unluckyninja.omnisign.listeners;
 
-import com.github.unluckyninjac.omnisign.OmniSign;
-import com.github.unluckyninjac.omnisign.SignsManager;
-import com.github.unluckyninjac.omnisign.events.SignBreakEvent;
-import com.github.unluckyninjac.omnisign.events.SignClickEvent;
-import com.github.unluckyninjac.omnisign.events.SignPlaceEvent;
+import com.github.unluckyninja.omnisign.OmniSign;
+import com.github.unluckyninja.omnisign.SignsManager;
+import com.github.unluckyninja.omnisign.events.SignBreakEvent;
+import com.github.unluckyninja.omnisign.events.SignClickEvent;
+import com.github.unluckyninja.omnisign.events.SignPlaceEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.block.Sign;
 import org.bukkit.event.EventHandler;

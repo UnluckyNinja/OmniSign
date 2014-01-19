@@ -1,6 +1,6 @@
-package com.github.unluckyninjac.omnisign.events;
+package com.github.unluckyninja.omnisign.events;
 
-import com.github.unluckyninjac.omnisign.SignType;
+import com.github.unluckyninja.omnisign.SignType;
 import org.bukkit.block.Sign;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.block.BlockBreakEvent;
