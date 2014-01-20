@@ -1,6 +1,6 @@
 name: OmniSign
-main: com.github.unluckyninja.omnisign.OmniSign
+main: com.github.unluckyninja.omnisign.OmniSignMain
 version: 0.1
 author: UnluckyNinja
 database: true
-softdepend: [SQLibrary]
+softdepend: [SQLibrary, Vault]
