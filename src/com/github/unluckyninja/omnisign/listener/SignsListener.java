@@ -1,10 +1,10 @@
-package com.github.unluckyninja.omnisign.listeners;
+package com.github.unluckyninja.omnisign.listener;
 
-import com.github.unluckyninja.omnisign.OmniSign;
+import com.github.unluckyninja.omnisign.OmniSignMain;
 import com.github.unluckyninja.omnisign.SignsManager;
-import com.github.unluckyninja.omnisign.events.SignBreakEvent;
-import com.github.unluckyninja.omnisign.events.SignClickEvent;
-import com.github.unluckyninja.omnisign.events.SignPlaceEvent;
+import com.github.unluckyninja.omnisign.event.SignBreakEvent;
+import com.github.unluckyninja.omnisign.event.SignClickEvent;
+import com.github.unluckyninja.omnisign.event.SignPlaceEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.block.Sign;
 import org.bukkit.event.EventHandler;
@@ -15,10 +15,10 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 public class SignsListener implements Listener {
-    private OmniSign SP;
+    private OmniSignMain SP;
     private SignsManager SM;
     
-    public SignsListener(OmniSign SP){
+    public SignsListener(OmniSignMain SP){
         this.SP = SP;
         SM = SP.getSignsManager();
     }

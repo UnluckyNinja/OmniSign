@@ -2,12 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.github.unluckyninja.omnisign.listeners;
+package com.github.unluckyninja.omnisign.listener;
 
-import com.github.unluckyninja.omnisign.OmniSign;
+import com.github.unluckyninja.omnisign.OmniSignMain;
 import com.github.unluckyninja.omnisign.SignType;
 import com.github.unluckyninja.omnisign.SignsManager;
-import com.github.unluckyninja.omnisign.events.SignClickEvent;
+import com.github.unluckyninja.omnisign.event.SignClickEvent;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -17,10 +17,10 @@ import org.bukkit.event.block.Action;
  * @author Administrator
  */
 public class TimeSignListener implements Listener {
-    private OmniSign SP;
+    private OmniSignMain SP;
     private SignsManager SM;
     
-    public TimeSignListener(OmniSign SP){
+    public TimeSignListener(OmniSignMain SP){
         this.SP = SP;
         SM = SP.getSignsManager();
     }

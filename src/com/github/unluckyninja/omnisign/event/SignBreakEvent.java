@@ -1,4 +1,4 @@
-package com.github.unluckyninja.omnisign.events;
+package com.github.unluckyninja.omnisign.event;
 
 import com.github.unluckyninja.omnisign.SignType;
 import org.bukkit.block.Sign;
