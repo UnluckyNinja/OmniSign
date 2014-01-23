@@ -157,11 +157,6 @@ public class Payment {
                 }
             }
 
-            remainder.clear();
-            for (ItemStack i:items.values()){
-                remainder.put(i.getType(), i.getAmount());
-            }
-
             for (ItemStack i : player.getInventory()) {
                 if(slotNeed <= 0){
                     break;
