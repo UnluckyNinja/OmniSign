@@ -5,12 +5,13 @@
 package com.github.unluckyninja.omnisign.event;
 
 import com.github.unluckyninja.omnisign.SignType;
-import org.bukkit.block.Sign;
+import com.github.unluckyninja.omnisign.sign.OmniSign;
 
 public interface SignEvent{
-    public Sign getSign();
+    public OmniSign getOmniSign();
     public SignType getSignType();
-    public boolean isNormalSign();
+
     public boolean update();
+
     public void update(boolean bool);
 }

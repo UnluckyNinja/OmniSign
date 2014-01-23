@@ -4,3 +4,19 @@ version: 0.1
 author: UnluckyNinja
 database: true
 softdepend: [SQLibrary, Vault]
+commands:
+    omnisign:
+        description: command of OmniSign.
+        aliases: [os]
+        permission: omnisign.command.omnisign
+        usage: "Usage: /&lt;command&gt;."
+    sign:
+        description: Everything about the sign
+        aliases: [osign]
+        permission: omnisign.command.sign
+        usage: "Usage: /&lt;command&gt;."
+
+permissions:
+    omnisign.*:
+        default: op
+        description: give op everything

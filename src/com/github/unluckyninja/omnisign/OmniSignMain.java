@@ -1,10 +1,15 @@
 package com.github.unluckyninja.omnisign;
 
+import com.github.unluckyninja.omnisign.listener.SignsListener;
+import com.github.unluckyninja.omnisign.listener.TimeSignListener;
 import lib.PatPeter.SQLibrary.Database;
 import lib.PatPeter.SQLibrary.SQLite;
-import org.bukkit.configuration.Configuration;
+import net.milkbowl.vault.chat.Chat;
+import net.milkbowl.vault.economy.Economy;
+import net.milkbowl.vault.permission.Permission;
 import org.bukkit.plugin.InvalidDescriptionException;
 import org.bukkit.plugin.InvalidPluginException;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.UnknownDependencyException;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.w3c.dom.Document;
@@ -24,21 +29,64 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class OmniSignMain extends JavaPlugin {
-
-    private Configuration config;
-
     private Database sql;
 
     private SignsManager SM;
 
+    public static Permission permission = null;
+    public static Economy economy = null;
+    public static Chat chat = null;
+
+    private boolean setupPermissions() {
+        RegisteredServiceProvider<Permission> permissionProvider = getServer().getServicesManager().getRegistration(net.milkbowl.vault.permission.Permission.class);
+        if (permissionProvider != null) {
+            permission = permissionProvider.getProvider();
+        }
+        return (permission != null);
+    }
+
+    private boolean setupChat() {
+        RegisteredServiceProvider<Chat> chatProvider = getServer().getServicesManager().getRegistration(net.milkbowl.vault.chat.Chat.class);
+        if (chatProvider != null) {
+            chat = chatProvider.getProvider();
+        }
+
+        return (chat != null);
+    }
+
+    private boolean setupEconomy() {
+        RegisteredServiceProvider<Economy> economyProvider = getServer().getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
+        if (economyProvider != null) {
+            economy = economyProvider.getProvider();
+        }
+
+        return (economy != null);
+    }
 
     @Override
     public void onEnable() {
-//        SM = SignsManager.getInstance(this);
+        SM = SignsManager.getInstance(this);
 //        config = this.getConfig();
 //        config.options().copyDefaults(true);
 
         checkDependency();
+
+        setupChat();
+        setupEconomy();
+        setupPermissions();
+
+        getServer().getPluginManager().registerEvents(new SignsListener(this), this);
+        getServer().getPluginManager().registerEvents(new TimeSignListener(this), this);
+
+        info(getDescription().getName() + " has been enabled.");
+    }
+
+    @Override
+    public void onDisable() {
+        info(getDescription().getName() + " has been disabled.");
+    }
+
+    private void setupSQL() {
         sql = new SQLite(Logger.getLogger("Minecraft"),
                 "[" + getDescription().getName() + "]",
                 this.getDataFolder().getAbsolutePath(),
@@ -52,12 +100,6 @@ public class OmniSignMain extends JavaPlugin {
                 error("create table failed.", e);
             }
         }
-        info(getDescription().getName() + " has been enabled.");
-    }
-
-    @Override
-    public void onDisable() {
-        info(getDescription().getName() + " has been disabled.");
     }
 
     private void checkDependency() {

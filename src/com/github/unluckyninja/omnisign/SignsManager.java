@@ -21,7 +21,7 @@ public class SignsManager {
     public Plugin getPlugin(){
         return plugin;
     }
-    
+
     public Object getMetadata(Sign sign, String key) {
         List<MetadataValue> values = sign.getMetadata(key);
         for (MetadataValue value : values) {
@@ -31,11 +31,11 @@ public class SignsManager {
         }
         return null;
     }
-    
+
     public void setMetadata(Sign sign, String key, Object value){
         sign.setMetadata(key, new FixedMetadataValue(plugin,value));
     }
-    
+
     public static SignsManager getInstance(Plugin plugin){
         String name = plugin.getDescription().getName();
         if(managers.containsKey(name)){

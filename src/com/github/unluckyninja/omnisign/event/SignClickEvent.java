@@ -1,6 +1,7 @@
 package com.github.unluckyninja.omnisign.event;
 
 import com.github.unluckyninja.omnisign.SignType;
+import com.github.unluckyninja.omnisign.sign.OmniSign;
 import org.bukkit.block.Sign;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -19,12 +20,12 @@ public class SignClickEvent extends PlayerInteractEvent implements SignEvent{
         sign = (Sign)this.blockClicked.getState();
         update = false;
     }
-    
+
     @Override
-    public Sign getSign(){
-        return sign;
+    public OmniSign getOmniSign() {
+        return null;
     }
-    
+
     @Override
     public SignType getSignType() {
         String line1 = sign.getLine(0);
@@ -33,11 +34,6 @@ public class SignClickEvent extends PlayerInteractEvent implements SignEvent{
         }else{
             return SignType.NORMAL;
         }
-    }
-    
-    @Override
-    public boolean isNormalSign() {
-        return !(sign.getLine(0).startsWith("[") && sign.getLine(0).endsWith("]"));
     }
     
     @Override

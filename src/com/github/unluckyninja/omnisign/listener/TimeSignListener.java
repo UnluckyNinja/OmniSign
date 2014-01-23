@@ -8,9 +8,11 @@ import com.github.unluckyninja.omnisign.OmniSignMain;
 import com.github.unluckyninja.omnisign.SignType;
 import com.github.unluckyninja.omnisign.SignsManager;
 import com.github.unluckyninja.omnisign.event.SignClickEvent;
+import com.github.unluckyninja.omnisign.event.SignCreateEvent;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.inventory.ItemStack;
 
 /**
  * @deprecated Now for debug
@@ -27,15 +29,28 @@ public class TimeSignListener implements Listener {
     
     @EventHandler
     public void onTimeSignClicked(SignClickEvent event){
-        event.getPlayer().sendMessage("time sign listener called."+event.getSignType().toString());
         if(event.getSignType() == SignType.TIME){
+            event.getPlayer().sendMessage("time sign listener called."+event.getSignType().toString());
             if(event.getAction() == Action.RIGHT_CLICK_BLOCK){
                 event.getPlayer().sendMessage("Your right click the sign.");
-                SM.setMetadata(event.getSign(), "SignOwner", event.getPlayer().getName());
             } else if(event.getAction() == Action.LEFT_CLICK_BLOCK){
                 event.getPlayer().sendMessage("Your left click the sign.");
-                event.getPlayer().sendMessage(SM.getMetadata(event.getSign(), "SignOwner").toString());
+                event.getPlayer().sendMessage("size: "+event.getPlayer().getInventory().getSize());
+                int i =0;
+                for(ItemStack item:event.getPlayer().getInventory()){
+                    i++;
+                }
+                event.getPlayer().sendMessage("items: "+i);
+
             }
+        }
+    }
+
+    @EventHandler
+    public void onTimeSignCreated(SignCreateEvent event){
+        if(event.getSignType() == SignType.TIME){
+            event.getPlayer().sendMessage("time sign listener called.");
+            event.getPlayer().sendMessage("time sign has been created");
         }
     }
 }

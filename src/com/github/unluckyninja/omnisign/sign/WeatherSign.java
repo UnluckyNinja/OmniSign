@@ -1,6 +1,7 @@
 package com.github.unluckyninja.omnisign.sign;
 
 import com.github.unluckyninja.omnisign.SignType;
+import com.github.unluckyninja.omnisign.util.Payment;
 import org.bukkit.WeatherType;
 import org.bukkit.World;
 import org.bukkit.block.Sign;
@@ -10,12 +11,9 @@ import java.util.Map;
 /**
  * Created by Administrator on 14-1-20.
  */
-public class TimeSign implements OmniSign {
+public class WeatherSign extends OmniSign {
 
-    private static final SignType type = SignType.TIME;
-
-    private int id;
-    private final Sign sign;
+    private static final SignType type = SignType.WEATHER;
 
     private World world;
     private WeatherType weatherType;
@@ -23,15 +21,17 @@ public class TimeSign implements OmniSign {
     private boolean opposite = false;
     private boolean active;
 
-    public TimeSign(int id, Sign sign) {
-        this.id = id;
-        this.sign = sign;
+    private Payment payment;
+
+    public WeatherSign(int id, Sign sign) {
+        super(id,sign);
+        sign.setLine(0, "[Weather]");
         world = sign.getWorld();
     }
 
     @Override
     public boolean canEnable() {
-        return false;
+        return weatherType != null;
     }
 
     @Override
@@ -45,32 +45,30 @@ public class TimeSign implements OmniSign {
 
     @Override
     public boolean act() {
-        return false;
+        if(!active) {
+            return false;
+        }
+        world.setStorm(weatherType == WeatherType.DOWNFALL);
+        return true;
     }
 
     @Override
-    public void onDisable() {
-
+    public boolean onDisable() {
+        active = false;
+        return true;
     }
 
     @Override
-    public boolean ediact() {
-        return false;
+    public boolean interact() {
+        if (active){
+            return false;
+        }
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
         return active;
-    }
-
-    @Override
-    public int getID() {
-        return id;
-    }
-
-    @Override
-    public Sign getSign() {
-        return sign;
     }
 
     @Override
