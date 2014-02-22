@@ -2,6 +2,7 @@ package com.github.unluckyninja.omnisign;
 
 import com.github.unluckyninja.omnisign.listener.SignsListener;
 import com.github.unluckyninja.omnisign.listener.TimeSignListener;
+import com.github.unluckyninja.omnisign.listener.WeatherSignListner;
 import lib.PatPeter.SQLibrary.Database;
 import lib.PatPeter.SQLibrary.SQLite;
 import net.milkbowl.vault.chat.Chat;
@@ -31,7 +32,7 @@ import java.util.logging.Logger;
 public class OmniSignMain extends JavaPlugin {
     private Database sql;
 
-    private SignsManager SM;
+    private static SignsManager SM;
 
     public static Permission permission = null;
     public static Economy economy = null;
@@ -77,6 +78,7 @@ public class OmniSignMain extends JavaPlugin {
 
         getServer().getPluginManager().registerEvents(new SignsListener(this), this);
         getServer().getPluginManager().registerEvents(new TimeSignListener(this), this);
+        getServer().getPluginManager().registerEvents(new WeatherSignListner(this), this);
 
         info(getDescription().getName() + " has been enabled.");
     }
@@ -186,7 +188,7 @@ public class OmniSignMain extends JavaPlugin {
         getLogger().log(Level.SEVERE, string, t);
     }
 
-    public SignsManager getSignsManager() {
+    public static SignsManager getSignsManager() {
         return SM;
     }
 }

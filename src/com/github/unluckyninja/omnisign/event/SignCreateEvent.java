@@ -1,7 +1,7 @@
 package com.github.unluckyninja.omnisign.event;
 
-import com.github.unluckyninja.omnisign.SignType;
-import com.github.unluckyninja.omnisign.sign.OmniSign;
+import com.github.unluckyninja.omnisign.sign.OmniSignState;
+import com.github.unluckyninja.omnisign.sign.SignType;
 import org.bukkit.block.Sign;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.block.SignChangeEvent;
@@ -10,16 +10,27 @@ public class SignCreateEvent extends SignChangeEvent implements SignEvent{
     private static final HandlerList handlers = new HandlerList();
     private Sign sign;
     private boolean update;
+    private OmniSignState omniSignState;
     
     public SignCreateEvent(SignChangeEvent event){
         super(event.getBlock(), event.getPlayer(), event.getLines());
-        sign = (Sign)this.block.getState();
+        sign = (Sign)event.getBlock().getState();
+        omniSignState = new OmniSignState(sign);
         update = false;
     }
 
     @Override
-    public OmniSign getOmniSign() {
-        return null;
+    public Sign getSign() {
+        return sign;
+    }
+
+    @Override
+    public OmniSignState getOmniSignState() {
+        return omniSignState;
+    }
+
+    public void setOmniSign(OmniSignState omniSignState){
+        this.omniSignState = omniSignState;
     }
 
     @Override
@@ -38,16 +49,6 @@ public class SignCreateEvent extends SignChangeEvent implements SignEvent{
             throw new IndexOutOfBoundsException("You can't modify the first line in SignCreateEvent, modify sign instead");
         }
         super.setLine(index, line);
-    }
-
-    @Override
-    public boolean update() {
-        return update;
-    }
-
-    @Override
-    public void update(boolean bool) {
-        update = bool;
     }
     
     @Override

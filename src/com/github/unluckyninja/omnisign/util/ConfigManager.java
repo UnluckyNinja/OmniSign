@@ -10,7 +10,7 @@ import java.io.InputStream;
 import java.util.logging.Level;
 
 /**
- * Created by Administrator on 14-1-22.
+ * Created by UnluckyNinja on 14-1-22.
  */
 public class ConfigManager {
     private final String fileName;

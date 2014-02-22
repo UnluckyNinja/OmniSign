@@ -1,7 +1,7 @@
 package com.github.unluckyninja.omnisign.sign;
 
-import com.github.unluckyninja.omnisign.SignType;
 import com.github.unluckyninja.omnisign.util.Payment;
+import org.bukkit.ChatColor;
 import org.bukkit.WeatherType;
 import org.bukkit.World;
 import org.bukkit.block.Sign;
@@ -9,61 +9,94 @@ import org.bukkit.block.Sign;
 import java.util.Map;
 
 /**
- * Created by Administrator on 14-1-20.
+ * Created by UnluckyNinja on 14-1-20.
  */
-public class WeatherSign extends OmniSign {
+public class WeatherSign implements SignBehavior {
 
-    private static final SignType type = SignType.WEATHER;
+    public static final SignType type = SignType.WEATHER;
+
+    private OmniSign omniSign;
 
     private World world;
     private WeatherType weatherType;
 
     private boolean opposite = false;
-    private boolean active;
 
     private Payment payment;
 
-    public WeatherSign(int id, Sign sign) {
-        super(id,sign);
-        sign.setLine(0, "[Weather]");
-        world = sign.getWorld();
+    public WeatherSign(OmniSign omniSign) {
+        this.omniSign = omniSign
+        world = omniSign.getWorld();
+        parseWeather();
+        if (weatherType != null || opposite) {
+            sign.setLine(0, ChatColor.YELLOW+"[Weather]");
+        } else {
+            sign.setLine(0, ChatColor.RED+"[Weather]");
+        }
+        sign.update(true);
+    }
+
+    public void parseWeather() {
+        String weatherline = getSign().getLine(1).toLowerCase();
+        if (weatherline.equals("sun") || weatherline.equals("sunny") || weatherline.equals("sunshine") || weatherline.equals("fine")) {
+            weatherType = WeatherType.CLEAR;
+        } else if (weatherline.equals("rain") || weatherline.equals("rainy") || weatherline.equals("storm") || weatherline.equals("snow") || weatherline.equals("snowy")) {
+            weatherType = WeatherType.DOWNFALL;
+        } else if (weatherline.equals("toggle")){
+            opposite = true;
+        } else{
+            weatherType = null;
+            opposite = false;
+        }
     }
 
     @Override
     public boolean canEnable() {
-        return weatherType != null;
+        Sign sign = getSign();
+        if(!active){
+            if (weatherType != null || opposite){
+                sign.setLine(0, ChatColor.YELLOW + "[Weather]");
+            } else{
+                sign.setLine(0, ChatColor.RED + "[Weather]");
+            }
+            sign.update();
+        }
+        return weatherType != null || opposite;
     }
 
     @Override
     public boolean onEnable() {
-        if(!canEnable()){
-            return false;
+        Sign sign = getSign();
+        if(super.onEnable()){
+            getSign().setLine(0, ChatColor.GREEN + "[Weather]");
+            sign.update();
+            return true;
         }
-
-        return active = true;
+        return false;
     }
 
     @Override
     public boolean act() {
-        if(!active) {
+        if (!active) {
             return false;
         }
-        world.setStorm(weatherType == WeatherType.DOWNFALL);
+        if(weatherType != null){
+            world.setStorm(weatherType == WeatherType.DOWNFALL);
+        }else{
+            world.setStorm(!world.hasStorm());
+        }
         return true;
     }
 
     @Override
     public boolean onDisable() {
-        active = false;
-        return true;
-    }
-
-    @Override
-    public boolean interact() {
-        if (active){
-            return false;
+        Sign sign = getSign();
+        if(super.onDisable()){
+            getSign().setLine(0, ChatColor.YELLOW + "[Weather]");
+            sign.update();
+            return true;
         }
-        return true;
+        return false;
     }
 
     @Override

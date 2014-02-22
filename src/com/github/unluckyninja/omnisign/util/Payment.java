@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.regex.Pattern;
 
 /**
- * Created by Administrator on 14-1-20.
+ * Created by UnluckyNinja on 14-1-20.
  */
 public class Payment {
     private BigDecimal price;

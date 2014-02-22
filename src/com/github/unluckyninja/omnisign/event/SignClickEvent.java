@@ -1,7 +1,7 @@
 package com.github.unluckyninja.omnisign.event;
 
-import com.github.unluckyninja.omnisign.SignType;
-import com.github.unluckyninja.omnisign.sign.OmniSign;
+import com.github.unluckyninja.omnisign.sign.OmniSignState;
+import com.github.unluckyninja.omnisign.sign.SignType;
 import org.bukkit.block.Sign;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -12,40 +12,30 @@ import org.bukkit.event.player.PlayerInteractEvent;
  */
 public class SignClickEvent extends PlayerInteractEvent implements SignEvent{
     private static final HandlerList handlers = new HandlerList();
+    private OmniSignState omniSignState;
     private Sign sign;
-    private boolean update;
     
     public SignClickEvent(PlayerInteractEvent event){
         super(event.getPlayer(),event.getAction(),event.getItem(),event.getClickedBlock(),event.getBlockFace());
         sign = (Sign)this.blockClicked.getState();
-        update = false;
+        omniSignState = new OmniSignState(sign);
     }
 
     @Override
-    public OmniSign getOmniSign() {
-        return null;
+    public Sign getSign() {
+        return sign;
+    }
+
+    @Override
+    public OmniSignState getOmniSignState() {
+        return omniSignState;
     }
 
     @Override
     public SignType getSignType() {
-        String line1 = sign.getLine(0);
-        if(line1.startsWith("[") && line1.endsWith("]") && line1.length() > 3){
-            return SignType.getType(line1.substring(1,line1.length()-1));
-        }else{
-            return SignType.NORMAL;
-        }
+        return omniSignState.getOmniSign().getType();
     }
-    
-    @Override
-    public boolean update() {
-        return update;
-    }
-    
-    @Override
-    public void update(boolean bool) {
-        update = bool;
-    }
-    
+
     @Override
     public HandlerList getHandlers() {
         return handlers;

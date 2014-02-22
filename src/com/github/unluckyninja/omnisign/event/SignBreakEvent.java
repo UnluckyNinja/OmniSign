@@ -1,7 +1,7 @@
 package com.github.unluckyninja.omnisign.event;
 
-import com.github.unluckyninja.omnisign.SignType;
-import com.github.unluckyninja.omnisign.sign.OmniSign;
+import com.github.unluckyninja.omnisign.sign.OmniSignState;
+import com.github.unluckyninja.omnisign.sign.SignType;
 import org.bukkit.block.Sign;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -12,18 +12,25 @@ import org.bukkit.event.block.BlockBreakEvent;
  */
 public class SignBreakEvent extends BlockBreakEvent implements SignEvent {
     private static final HandlerList handlers = new HandlerList();
+    private final OmniSignState omniSignState;
     private Sign sign;
+
     private boolean update;
     
     public SignBreakEvent(BlockBreakEvent event){
         super(event.getBlock(),event.getPlayer());
-        sign = (Sign)this.block.getState();
+        sign = (Sign)event.getBlock().getState();
+        omniSignState = new OmniSignState(sign);
         update = false;
     }
 
+    public Sign getSign() {
+        return sign;
+    }
+
     @Override
-    public OmniSign getOmniSign() {
-        return null;
+    public OmniSignState getOmniSignState() {
+        return omniSignState;
     }
 
     @Override
@@ -35,20 +42,12 @@ public class SignBreakEvent extends BlockBreakEvent implements SignEvent {
             return SignType.NORMAL;
         }
     }
-    @Override
-    public boolean update() {
-        return update;
-    }
-    
-    @Override
-    public void update(boolean bool) {
-        update = bool;
-    }
     
     @Override
     public HandlerList getHandlers() {
         return handlers;
     }
+
     public static HandlerList getHandlerList() {
         return handlers;
     }

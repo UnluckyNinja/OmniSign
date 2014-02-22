@@ -4,14 +4,13 @@
  */
 package com.github.unluckyninja.omnisign.event;
 
-import com.github.unluckyninja.omnisign.SignType;
-import com.github.unluckyninja.omnisign.sign.OmniSign;
+import com.github.unluckyninja.omnisign.sign.OmniSignState;
+import com.github.unluckyninja.omnisign.sign.SignType;
+import org.bukkit.block.Sign;
 
 public interface SignEvent{
-    public OmniSign getOmniSign();
+    public Sign getSign();
+
+    public OmniSignState getOmniSignState();
     public SignType getSignType();
-
-    public boolean update();
-
-    public void update(boolean bool);
 }
